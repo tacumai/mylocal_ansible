@@ -1,0 +1,18 @@
+---
+- name: Install vim
+  shell: brew install vim
+
+- name: Create .vim directory
+  file: path=~/.vim/colors state=directory
+
+- name: Git clone hybird
+  git: repo=https://github.com/w0ng/vim-hybrid dest=~/vim-hybrid
+
+- name: Move settings file
+  shell: mv ~/vim-hybrid/colors/hybrid.vim ~/.vim/colors
+
+- name: Remove hibird repository
+  shell: rm -rf ~/vim-hybrid
+
+- name: Set .vimrc
+  copy: src=files/.vimrc dest=~/

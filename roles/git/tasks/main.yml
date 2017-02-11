@@ -1,0 +1,10 @@
+---
+- name: Install git
+  homebrew:
+    name: git
+
+- name: Set .gitignore file
+  copy: src=files/.gitignore_global dest=~/
+
+- nmae: Set .gitconfig
+  copy: src=files/.gitconfig dest=~/

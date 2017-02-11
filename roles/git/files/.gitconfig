@@ -1,0 +1,19 @@
+[core]
+    excludesfile = ~/.gitignore_global
+
+[user]
+  name = 'tacmac'
+  email ='tacuma.igei@gmail.com'
+
+[color]
+    ui = true
+
+[alias]
+    st = status
+    cm = commit
+    cmm = commit -m
+    co = checkout
+    b = branch
+    cb = checkout -b
+    sm = submodule
+    p = push
