@@ -1,6 +1,7 @@
 ---
 - name: Install vim
-  shell: brew install vim
+  homebrew:
+    name: vim
 
 - name: Create .vim directory
   file: path=~/.vim/colors state=directory
