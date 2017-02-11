@@ -6,5 +6,5 @@
 - name: Set .gitignore file
   copy: src=files/.gitignore_global dest=~/
 
-- nmae: Set .gitconfig
+- name: Set .gitconfig
   copy: src=files/.gitconfig dest=~/
