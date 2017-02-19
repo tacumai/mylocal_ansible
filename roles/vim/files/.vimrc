@@ -20,10 +20,6 @@ set clipboard=unnamed,autoselect
 set number
 " 行番号の色を指定
 autocmd ColorScheme * highlight LineNr ctermfg=100
-" 現在の行を強調表示
-set cursorline
-" 現在の行の色を指定
-autocmd ColorScheme * highlight CursorLine ctermbg=8
 " 現在の行を強調表示（縦）
 "set cursorcolumn
 " 行末の1文字先までカーソルを移動できるように
@@ -47,8 +43,8 @@ nnoremap k gk
 " Tab系
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set expandtab
-" 行頭以外のTab文字の表示幅（スペースいくつ分）
 set tabstop=2
+set shiftwidth=2
 " 検索系
 " 検索文字列が小文字の場合は大文字小文字を区別なく検索する
 set ignorecase
@@ -69,6 +65,12 @@ colorscheme hybrid
 " ダーク系のカラースキームを使う
 set background=dark
 let g:hybrid_use_iTerm_colors = 1
+
+vnoremap > >gv
+vnoremap < <gv
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap [<Enter> []<Left><CR><ESC><S-o>
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
 
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
