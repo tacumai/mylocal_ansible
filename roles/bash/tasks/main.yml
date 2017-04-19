@@ -1,0 +1,13 @@
+---
+- name: Set .bashrc
+  copy: src=files/.bashrc dest=~/
+
+- name: source .bashrc
+  shell: source ~/.bashrc
+
+- name: Set .bash_profile
+  copy: src=files/.bash_profile dest=~/
+
+- name: source .bash_profile
+  shell: source ~/.bash_profile
+
