@@ -8,3 +8,9 @@
 
 - name: Set .gitconfig
   copy: src=files/.gitconfig dest=~/
+
+- name: Set .git-completion
+  copy: src=files/.git-completion dest=~/
+
+- name: reload .git-completion
+  shell: echo 'source ~/.git-completion.bash' >> ~/.bashrc
