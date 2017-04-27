@@ -10,7 +10,9 @@
   copy: src=files/.gitconfig dest=~/
 
 - name: Set .git-completion
-  copy: src=files/.git-completion dest=~/
+  copy: src=files/.git-completion.bash dest=~/
 
-- name: reload .git-completion
-  shell: echo 'source ~/.git-completion.bash' >> ~/.bashrc
+- name: Set source setting for git-completion
+  lineinfile: >
+    dest=~/.bashrc
+    line='source ~/.git-completion.bash'
