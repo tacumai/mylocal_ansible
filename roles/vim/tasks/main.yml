@@ -1,7 +1,13 @@
 ---
-- name: Install vim
+- name: Install lua
   homebrew:
-    name: vim
+    name: lua
+
+- name: Install Vim
+  shell: brew install macvim-dev/macvim/macvim --HEAD
+
+- name: Link Macvim to vim
+  shell: brew link --overwrite macvim
 
 - name: Create .vim directory
   file: path=~/.vim/colors state=directory
