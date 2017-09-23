@@ -23,3 +23,12 @@
 
 - name: Set .vimrc
   copy: src=files/.vimrc dest=~/
+
+- name: Create directory for xx.vim
+  file:
+    path: ~/.vim/after/ftplugin/go.vim
+    mode: 0755
+    state: directory
+
+- name: Set go.vim
+  copy: src=files/go.vim dest=~/.vim/after/ftplugin/go.vim

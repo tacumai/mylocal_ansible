@@ -22,6 +22,13 @@ set wrapscan
 set hlsearch
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
+" クリップボード
+set clipboard+=unnamed
+nnoremap <silent> cy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+vnoremap <silent> cy c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap <silent> ciy ciw<C-r>"<ESC>:let@/=@1<CR>:noh<CR>
+nnoremap dw yw<ESC>dw
+
 " 移動系
 set showmatch
 source $VIMRUNTIME/macros/matchit.vim " ノーマルモード時に「%」で対応するカッコにジャンプ
@@ -107,6 +114,7 @@ NeoBundle 'itchyny/lightline.vim'
 NeoBundle 'bronson/vim-trailing-whitespace'
 NeoBundle 'Yggdroot/indentLine'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'vim-jp/vim-go-extra'
 
 
 " コードの自動補完プラグイン
@@ -114,6 +122,7 @@ if has('lua')
  NeoBundle 'Shougo/neocomplete.vim'
  NeoBundle "Shougo/neosnippet"
  NeoBundle 'Shougo/neosnippet-snippets'
+ NeoBundle 'scrooloose/nerdtree'
 endif
 "----------------------------------------------------------
 call neobundle#end()
@@ -123,6 +132,8 @@ filetype plugin indent on
 " 未インストールのVimプラグインがある場合、インストールするかどうかを尋ねてくれるようにする設定・・・・・・③
 NeoBundleCheck
 
+" nerdtreeのショートカットキー
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 
 "----------------------------------------------------------
@@ -155,4 +166,3 @@ let g:neocomplete#min_keyword_length = 3
 let g:neocomplete#enable_auto_delimiter = 1
 " 1文字目の入力から補完のポップアップを表示
 let g:neocomplete#auto_completion_start_length = 1
-
