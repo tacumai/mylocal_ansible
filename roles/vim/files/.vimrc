@@ -5,6 +5,7 @@ set fileencoding=utf-8
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932
 set fileformats=unix,dos,mac
 set ambiwidth=double
+set synmaxcol=200
 
 " タブ・インデント周りの設定
 set shiftwidth=2
@@ -28,10 +29,6 @@ nnoremap <silent> cy ce<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 vnoremap <silent> cy c<C-r>0<ESC>:let@/=@1<CR>:noh<CR>
 nnoremap <silent> ciy ciw<C-r>"<ESC>:let@/=@1<CR>:noh<CR>
 nnoremap dw yw<ESC>dw
-
-" 移動系
-set showmatch
-source $VIMRUNTIME/macros/matchit.vim " ノーマルモード時に「%」で対応するカッコにジャンプ
 
 " コマンド補完
 set wildmenu
@@ -66,7 +63,38 @@ set backspace=indent,eol,start
 set number
 " 行番号の色を指定
 autocmd ColorScheme * highlight LineNr ctermfg=100
-set cursorline
+" set cursorline
+highlight CursorLine  term=reverse cterm=none ctermbg=242
+augroup vimrc-auto-cursorline
+  autocmd!
+  autocmd CursorMoved,CursorMovedI * call s:auto_cursorline('CursorMoved')
+  autocmd CursorHold,CursorHoldI * call s:auto_cursorline('CursorHold')
+  autocmd WinEnter * call s:auto_cursorline('WinEnter')
+  autocmd WinLeave * call s:auto_cursorline('WinLeave')
+
+  let s:cursorline_lock = 0
+  function! s:auto_cursorline(event)
+    if a:event ==# 'WinEnter'
+      setlocal cursorline
+      let s:cursorline_lock = 2
+    elseif a:event ==# 'WinLeave'
+      setlocal nocursorline
+    elseif a:event ==# 'CursorMoved'
+      if s:cursorline_lock
+        if 1 < s:cursorline_lock
+          let s:cursorline_lock = 1
+        else
+          setlocal nocursorline
+          let s:cursorline_lock = 0
+        endif
+      endif
+    elseif a:event ==# 'CursorHold'
+      setlocal cursorline
+      let s:cursorline_lock = 1
+    endif
+  endfunction
+augroup END
+
 " 行末の1文字先までカーソルを移動できるように
 set virtualedit=onemore
 " ビープ音を可視化
@@ -110,11 +138,12 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 "----------------------------------------------------------
 " ここに追加したいVimプラグインを記述する・・・・・・②
-NeoBundle 'itchyny/lightline.vim'
-NeoBundle 'bronson/vim-trailing-whitespace'
-NeoBundle 'Yggdroot/indentLine'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'vim-jp/vim-go-extra'
+ NeoBundle 'itchyny/lightline.vim'
+ NeoBundle 'bronson/vim-trailing-whitespace'
+ "NeoBundle 'Yggdroot/indentLine'
+ NeoBundle 'scrooloose/syntastic'
+ NeoBundle 'vim-jp/vim-go-extra'
+ NeoBundle 'shinespark/vim-list2tree'
 
 
 " コードの自動補完プラグイン
@@ -134,6 +163,11 @@ NeoBundleCheck
 
 " nerdtreeのショートカットキー
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+" nerdtree起動時のカレントディレクトリ
+cd .
+
+" vim-list2treeのショートカットキー
+vnoremap <c-t> :<c-u>'<,'>List2Tree<CR>
 
 
 "----------------------------------------------------------
@@ -149,9 +183,11 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 0
 " 「:wq」で終了する時も構文エラーチェックする
 let g:syntastic_check_on_wq = 1
-let g:syntastic_mode_map = { 'mode': 'passive',
-            \ 'active_filetypes': ['ruby'] }
-let g:syntastic_ruby_checkers = ['rubocop']
+"let g:syntastic_mode_map = { 'mode': 'passive',
+"            \ 'active_filetypes': ['ruby'] }
+"let g:syntastic_ruby_checkers = ['rubocop']
+"set conceallevel=0
+"let g:vim_json_syntax_conceal = 0
 
 "----------------------------------------------------------
 " neocomplete・neosnippetの設定
