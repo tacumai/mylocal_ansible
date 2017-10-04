@@ -2,6 +2,9 @@
 - hosts: 127.0.0.1
   connection: local
   roles:
-  - bash
-  - vim
-  - git
+    - role: bash
+      tags: bash
+    - role: vim
+      tags: vim
+    - role: git
+      tags: git
